@@ -177,11 +177,28 @@ def predict_blockchain(address, model_path):
     prediction = pipeline.predict([address])[0]
     return le.inverse_transform([prediction])[0]
 
+def predict_blockchain_batch(input_file, model_path, output_file):
+    # Load the model and label encoder
+    pipeline = joblib.load(model_path)
+    le = joblib.load('label_encoder.joblib')
+
+    with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
+        outfile.write("Address,Predicted_Blockchain\n")
+        for address in infile:
+            address = address.strip()
+            if address:
+                prediction = pipeline.predict([address])[0]
+                predicted_blockchain = le.inverse_transform([prediction])[0]
+                outfile.write(f"{address},{predicted_blockchain}\n")
+
+    print(f"Batch predictions have been saved to {output_file}")
+
 def main():
     parser = argparse.ArgumentParser(description="Train model or predict blockchain for an address")
-    parser.add_argument("action", choices=["train", "predict"], help="Choose to train the model or predict for an address")
+    parser.add_argument("action", choices=["train", "predict", "predict_batch"], help="Choose to train the model or predict for an address")
     parser.add_argument("--input", default="datasets/address_dataset_shuffled.csv",help="Input CSV file for training or address for prediction")
     parser.add_argument("--model", default="crypto_classifier_model.joblib", help="Path to save/load the model")
+    parser.add_argument("--output", help="Output file for batch predictions")
 
     args = parser.parse_args()
 
@@ -194,6 +211,12 @@ def main():
             parser.error("--input is required for prediction (address to predict)")
         predicted_blockchain = predict_blockchain(args.input, args.model)
         print(f"The predicted blockchain for {args.input} is: {predicted_blockchain}")
+    elif args.action == "predict_batch":
+        if not args.input:
+            parser.error("--input is required for batch prediction (path to input text file)")
+        if not args.output:
+            parser.error("--output is required for batch prediction (path to output CSV file)")
+        predict_blockchain_batch(args.input, args.model, args.output)
 
 if __name__ == "__main__":
     main()

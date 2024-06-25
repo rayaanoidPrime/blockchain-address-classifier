@@ -48,22 +48,37 @@ To train the blockchain address classification model:
 python model.py train --input path_to_your_input.csv --model model_output_path.joblib
 ```
 
+This will train the model, save it to the specified path, and generate an OOB error plot.
+
 - `--input`: Path to your preprocessed CSV file containing addresses and their corresponding blockchains.
 - `--model`: Path where you want to save the trained model.
 
-This will train the model, save it to the specified path, and generate an OOB error plot.
+For Batch prediction of a lot of addresses :
 
-### Making Predictions
+## Making Predictions
 
-To predict the blockchain for a given address:
+### To predict the blockchain for a given address:
+
+```
 python model.py predict --input 0x742d35Cc6634C0532925a3b844Bc454e4438f44e --model path_to_your_model.joblib
+```
+
+### To predict a batch of a lot of addresses in a txt file. The file format should be one address per line:
+
+```
+python model.py predict_batch --input path_to_addresses.txt --model path_to_your_model.joblib --output predictions_output.csv
+
+```
 
 - `--input`: The blockchain address you want to classify.
 - `--model`: Path to your trained model file.
+- `--output`: Path where you want to save the CSV file with predictions.
+
+This will process all addresses in the input file and create a CSV file with two columns: Address and Predicted_Blockchain.
 
 ## File Descriptions
 
-- `blockchain_scraper.py`: Script for scraping blockchain addresses.
+- `scraper.py`: Script for scraping blockchain addresses.
 - `process_scrapped_datasets.py`: Script for processing raw datasets.
 - `model.py`: Script for training the classification model and making predictions.
 - `requirements.txt`: List of Python dependencies.
