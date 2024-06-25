@@ -7,7 +7,7 @@ This project provides tools to scrape blockchain addresses, process datasets, tr
 1. Clone this repository:
 
    ```
-   git clone https://github.com/rayaanoidprimeblockchain-address-classifier.git
+   git clone https://github.com/rayaanoidprime/blockchain-address-classifier.git
    cd blockchain-address-classifier
 
    ```
