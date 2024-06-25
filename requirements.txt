@@ -1,0 +1,9 @@
+beautifulsoup4
+selenium
+webdriver-manager
+eth_utils
+cb58ref
+pandas
+numpy
+scikit-learn
+matplotlib
