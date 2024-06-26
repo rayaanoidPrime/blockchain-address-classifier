@@ -25,7 +25,8 @@ def predict_blockchain(address):
         }), 200
     except Exception as e:
         return jsonify({
-            'error': str(e)
+            'error': str(e),
+            'address': address,
         }), 400
 
 if __name__ == '__main__':
