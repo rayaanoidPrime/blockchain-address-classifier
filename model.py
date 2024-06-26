@@ -197,7 +197,7 @@ def main():
     parser = argparse.ArgumentParser(description="Train model or predict blockchain for an address")
     parser.add_argument("action", choices=["train", "predict", "predict_batch"], help="Choose to train the model or predict for an address")
     parser.add_argument("--input", default="datasets/address_dataset_shuffled.csv",help="Input CSV file for training or address for prediction")
-    parser.add_argument("--model", default="crypto_classifier_model.joblib", help="Path to save/load the model")
+    parser.add_argument("--model", default="blockchain_address_classifier.joblib", help="Path to save/load the model")
     parser.add_argument("--output", help="Output file for batch predictions")
 
     args = parser.parse_args()
