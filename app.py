@@ -17,7 +17,7 @@ def predict_blockchain():
     try:
         address = request.args.get('address')
         if not address:
-            raise ValueError("Missing crypto_address parameter")
+            raise ValueError("Missing address parameter")
         
         prediction = model.predict([address])[0]
         predicted_blockchain = label_encoder.inverse_transform([prediction])[0]
